@@ -1,4 +1,6 @@
 package com.epam.izh.rd.online.service;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class SimpleMathService implements MathService {
 
@@ -13,7 +15,15 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int compare(int value1, int value2) {
-        return -2;
+        if (value1 == value2) {
+            return 0;
+        }
+        else if (value1 < value2) {
+            return -1;
+        }
+        else if (value1 > value2) {
+        }
+            return 1;
     }
 
     /**
@@ -22,16 +32,24 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int maxFrom(int value1, int value2) {
-        return -1;
+        if (value1 > value2) return value1;
+        else return value2;
     }
 
+
     /**
-     * Метод возвращает максимальное число из переданного массива.
+     * Метод возвращает максиальное число из переданного массива.
      * Например для списка {-1, -3, 4, 8, 5, 22, -5} метод должен вернуть 22
      */
     @Override
     public int maxFrom(int[] values) {
-        return -1;
+        int max = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (max < values[i]) {
+                max = values[i];
+            }
+        }
+        return max;
     }
 
     /**
@@ -40,7 +58,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int sum(int[] values) {
-        return -1;
+        int sum = 0;
+        for (int i = 0; i < values.length; i++) {
+            sum += values[i];
+            }
+        return sum;
     }
 
     /**
@@ -49,8 +71,26 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] getEvenDigits(int[] values) {
-        return new int[]{};
+        int[] onlyEvens;
+        int lengthArray1 = 0;
+        int j = 0;
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                lengthArray1++;
+            }
+        }
+
+        onlyEvens = new int[lengthArray1];
+
+        for (int i = 0; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                onlyEvens[j] = values[i];
+                j++;
+            }
+        }
+        return onlyEvens;
     }
+
 
     /**
      * Метод считает факториал из заданного числа.
@@ -59,7 +99,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFactorial(int initialVal) {
-        return -1L;
+        long result = 1;
+        for (int i = 1; i <= initialVal; i++) {
+            result = result * i;
+        }
+        return result;
     }
 
     /**
@@ -74,7 +118,11 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public long calcFibonacci(int number) {
-        return -1L;
+        if (number == 0) {return 0; }
+        else if (number < 3) {return 1; }
+        else {
+            return calcFibonacci(number - 1) + calcFibonacci(number - 2);
+        }
     }
 
     /**
@@ -83,7 +131,7 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] sort(int[] values) {
-        return new int[]{};
+         return Arrays.stream(values).sorted().toArray();
     }
 
     /**
@@ -94,7 +142,13 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public boolean isPrimary(int number) {
-        return false;
+         boolean result = true;
+             for (int i = 2; i < number; i++) {
+                 if (number % i == 0) {
+                     result = false;
+                 }
+             }
+         return result;
     }
 
     /**
@@ -104,6 +158,12 @@ public class SimpleMathService implements MathService {
      */
     @Override
     public int[] reverseArray(int[] values) {
-        return new int[]{};
+        int tmp, len = values.length - 1;
+        for (int i = 0; i < len/2;i++) {
+            tmp = values[i];
+            values[i] = values[len - i];
+            values[len - i] = tmp;
+        }
+        return values;
     }
 }
